@@ -300,6 +300,28 @@ async def bot_message(message: types.Message):
                             f"Cтрелец - мечтательный и бесстрашный. Стрелец - путешественник и первооткрыватель,\n"
                             f"он отличается любознательностью и жаждой знаний,\n"
                             f"однако порой вспыльчив и чересчур эмоционален.\n")
+    elif message.text == 'Криминальная Россия':
+        await bot.send_message(message.from_user.id, 'Выпуски какого года?', reply_markup=nav.krimMenu)
+    elif message.text == '1995':
+        kr95_list = ["https://youtu.be/26YEFSJGixY", "https://youtu.be/KeYRbrQ1_6k", "https://youtu.be/q9aevIXuaWY",\
+                   "https://youtu.be/vjdE9cNr69U", "https://youtu.be/RkaXHH9p9Hg", "https://youtu.be/G6b9z_6BnNk",\
+                   "https://youtu.be/GL1_SOC35Bc", "https://youtu.be/rxxfJMzBpCY", "https://youtu.be/xYwGlMBFsQk",\
+                   "https://youtu.be/SFES1rT1ob0", "https://youtu.be/hz-BBa-NzYg", "https://youtu.be/bQoXv2jzoDo",\
+                   "https://youtu.be/2f1IaZyAH-4"]
+        await message.reply(random.choice(kr95_list))
+    elif message.text == '1997':
+        kr97_list = ["https://youtu.be/Z6awn_67JHI", "https://youtu.be/rMgT523vV8M", "https://youtu.be/xWyPLqxFd2E",\
+                    "https://youtu.be/xAgVYCAJYKM", "https://youtu.be/H0eZae2RZ7o","https://youtu.be/fNDRbaQsjwY",\
+                     "https://youtu.be/qEmtNJnJKVk"]
+        await message.reply (random.choice (kr97_list))
+    elif message.text == '1998':
+        kr98_list = ["https://youtu.be/TkGinelJZ1I", "https://youtu.be/filyf2cvsEI", "https://youtu.be/YSDsr8PmTbY",\
+                    "https://youtu.be/Znd9UFaH1xc", "https://youtu.be/PHJLKatR3Xk","https://youtu.be/OiwTyMmZkhA",\
+                    "https://youtu.be/4wqd2P33qFo", "https://youtu.be/-7W6S2-3FOg","https://youtu.be/IPXBoIchFlQ", \
+                    "https://youtu.be/x_nbiiSFFlY", "https://youtu.be/S261nGfcNGU", "https://youtu.be/tsPvsDIfNP8", \
+                    "https://youtu.be/yemsD1mUlUM", "https://youtu.be/UJszlW-S-7U", "https://youtu.be/jtd43ehuWAM", \
+                    "https://youtu.be/2HEHceD6nK4", "https://youtu.be/x5nm9K_iwFQ, https://youtu.be/4EQ9gDuUnWo"]
+        await message.reply (random.choice (kr98_list))
     elif message.text == 'Главное меню': # возвращает пользователя в главное меню
         await bot.send_message(message.from_user.id, 'Только что же там были...', reply_markup=nav.mainMenu)
     elif message.text == 'Назад':
