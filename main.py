@@ -3,9 +3,11 @@ import datetime
 from pprint import pprint
 from config import open_weather_token
 
-
+# функция запрашивает и собирает необходимые значения
+# с сайта open weather и возвращает уже оформленную
+# версию собранной информации
 def get_weather(city, open_weather_token):
-
+    # библиотека
     code_to_smile = {
         "Clear": "Ясно \U00002600",
         "Clouds": "Облачно \U00002601",
@@ -14,7 +16,7 @@ def get_weather(city, open_weather_token):
         "Thundershtorm": "Гроза \U000026A1",
         "Snow": "Снег \U0001F328"
     }
-    try:
+    try:    # запрос на openweathermap для получения данных
         r = requests.get(
             f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={open_weather_token}&units=metric"
         )
@@ -30,12 +32,13 @@ def get_weather(city, open_weather_token):
         else:
             wd = "\U00000001"
 
-        humidity = data["main"]["humidity"]
-        pressure = data["main"]["pressure"]
-        wind = data["wind"]["speed"]
-        sunrise = datetime.datetime.fromtimestamp(data["sys"]["sunrise"])
-        sunset = datetime.datetime.fromtimestamp(data["sys"]["sunset"])
+        humidity = data["main"]["humidity"] # значение влажности
+        pressure = data["main"]["pressure"] # значение давления
+        wind = data["wind"]["speed"] # значение скорости ветра
+        sunrise = datetime.datetime.fromtimestamp(data["sys"]["sunrise"]) # время рассвета
+        sunset = datetime.datetime.fromtimestamp(data["sys"]["sunset"]) # время заката
 
+        # Возвращаются необходимые данные, задается оформление
         return print(f"----{datetime.datetime.now().strftime('%d-%m-%y %H:%M')}----\n"
               f"Погода в городе {city} на текущий момент:\nТемпература: {cur_weather}°С {wd}\n"
               f"Влажность: {humidity}%\nДавление: {pressure} мм.рт.ст.\n"
@@ -49,6 +52,7 @@ def get_weather(city, open_weather_token):
         print(ex)
         return print('Ошибка! Проверьте название введенного города.')
 
+# запрашиваем ввод города у пользователя
 def mainw():
     city = input("Введите необходимый город: ")
     get_weather(city, open_weather_token)
