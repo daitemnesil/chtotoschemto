@@ -18,6 +18,9 @@ from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButt
     InlineKeyboardButton
 import markup as nav
 import random
+import googlemaps
+gmaps = googlemaps.Client(key='AIzaSyDIn_YgBAoiJrrxw1_HrW9rJ2kMaPggumY')
+
 TOKEN = '5069121340:AAEFDLJLYe2HmXmBSTMhmPaj_aTI-rB0k7c'
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot) #создали объект класса дистпачер, он нужен для создания хэндлеров
@@ -105,12 +108,22 @@ async def bot_message(message: types.Message):
     elif message.text == 'Еда':
         await bot.send_message(message.from_user.id, 'Тебе бы на диету, но ладно...')
 
+        #search_loction = gmaps.places(location=(lat, lng), type="cafe")
+        #search_loction2 = gmaps.places(location=(lat, lng), type="restaurant")
+        await message.reply(search_loction, search_loction2)
     elif message.text == 'Поглазеть':
+
         await bot.send_message(message.from_user.id, 'Надо же, удивительно, не вариант с едой...')
-
+        #search_loction = gmaps.places(location=(lat, lng), type="art_gallery")
+        #search_loction2 = gmaps.places(location=(lat, lng), type="tourist_attraction")
+        await message.reply(search_loction, search_loction2)
     elif message.text == 'Кино':
-        await bot.send_message(message.from_user.id, 'Хочешь спойлер? Ладно-ладно, не буду...')
+        await bot.send_message(message.from_user.id, 'Введите через запятую свою долготу и широту')
 
+        #search_loction = gmaps.places(location=lat, lng, type="movie_theater")
+        await message.reply(search_loction)
+    elif message.text == 'Приколюхи':
+        await bot.send_message(message.from_user.id, 'Добро пожаловать в самую странную часть:', reply_markup=nav.prikMenu)
     elif message.text == 'Какое ты животное?':
         await bot.send_message(message.from_user.id, 'Правда хочешь узнать?!')
         img_list = ['img_list/img_1.jpg', 'img_list/img_2.jpg', 'img_list/img_3.jpg', 'img_list/img_4.jpg',\
@@ -118,7 +131,7 @@ async def bot_message(message: types.Message):
         img_path = random.choice(img_list) #выбирается рандомная картинка
         await bot.send_photo(message.chat.id, photo=open(img_path, 'rb')) #рандомная картинка отправляется пользователю
     elif message.text == 'Узнай...':
-        await bot.send_message(message.from_user.id, 'Выбери:', reply_markup=nav.gadMenu)
+        await bot.send_message(message.from_user.id, 'Выбери, что хочешь о себе узнать:', reply_markup=nav.gadMenu)
     elif message.text == 'Жизненный настрой':
         await message.reply(f"Внимательно посмотрите на амулеты и долго не думая выберите понравившийся!\n")
         pic_list = ['pic_list/p_1.jpg']
@@ -149,7 +162,7 @@ async def bot_message(message: types.Message):
                             f"6. Такой выбор говорит о грядущих событиях, которые изменят вашу жизнь к лучшему.\n"
                             f"Этот амулет определяет вам финансовый достаток и успех в делах. Не следует надеяться,\n"
                             f"что все разрешится без вашего участия. Продолжайте работать, и тогда вас ожидает успех.\n")
-    elif message.text == 'Комлексы':
+    elif message.text == 'Комплексы':
         await message.reply(f"Выберете узел, не стоит долго думать.\n")
         pic_list = ['pic_list/p_2.jpg']
         img_path3 = random.choice(pic_list)
@@ -217,6 +230,8 @@ async def bot_message(message: types.Message):
                             f"находятся под контролем. Скорпионам свойственны страстные увлечения, отчаянная ревность\n"
                             f"и даже агрессия. Однако в большинстве случаев эти эмоции не выходят наружу, а остаются внутри,\n"
                             f"провоцируя глубокие переживания.\n")
+    elif message.text == 'Гороскоп':
+        await bot.send_message(message.from_user.id, 'Выберите свою стихию:', reply_markup=nav.gorMenu)
     elif message.text == 'Воздух':
         await message.reply(f"----Водолей----\n"
                             f"Стихия - Воздух\n"
@@ -285,8 +300,10 @@ async def bot_message(message: types.Message):
                             f"Cтрелец - мечтательный и бесстрашный. Стрелец - путешественник и первооткрыватель,\n"
                             f"он отличается любознательностью и жаждой знаний,\n"
                             f"однако порой вспыльчив и чересчур эмоционален.\n")
-    elif message.text == 'Назад': # возвращает пользователя в главное меню
+    elif message.text == 'Главное меню': # возвращает пользователя в главное меню
         await bot.send_message(message.from_user.id, 'Только что же там были...', reply_markup=nav.mainMenu)
+    elif message.text == 'Назад':
+        await bot.send_message(message.from_user.id, 'Только что же там были...', reply_markup=nav.prikMenu)
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
