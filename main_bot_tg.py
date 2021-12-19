@@ -19,23 +19,29 @@ from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButt
 import markup as nav
 import random
 import googlemaps
+
 gmaps = googlemaps.Client(key='AIzaSyDIn_YgBAoiJrrxw1_HrW9rJ2kMaPggumY')
 
 TOKEN = '5069121340:AAEFDLJLYe2HmXmBSTMhmPaj_aTI-rB0k7c'
 bot = Bot(token=TOKEN)
-dp = Dispatcher(bot) #создали объект класса дистпачер, он нужен для создания хэндлеров
+dp = Dispatcher(bot)  # создали объект класса дистпачер, он нужен для создания хэндлеров
 
 """Функция, запускающая начало работы и высылающая сообщение-приветсвие.
 Открывает перед пользователем главное меню."""
-@dp.message_handler(commands=['start']) #ожидает сообщения-команды
+
+
+@dp.message_handler(commands=['start'])  # ожидает сообщения-команды
 async def command_start(message: types.Message):
     await bot.send_message(message.from_user.id, 'Hello {0.first_name}'.format(message.from_user),
-                           reply_markup=nav.mainMenu) #автоматическое сообщение-приветсвие
-                           # reply_markup перенаправляет пользователя, в данном случае в главное меню
+                           reply_markup=nav.mainMenu)  # автоматическое сообщение-приветсвие
+    # reply_markup перенаправляет пользователя, в данном случае в главное меню
+
 
 """Функция, отвечающая за то, какую информацию выдать в зависимости от того,
 на какую из предложенных кнопок нажал пользователь. 
 Прописываются все исходы событий и выдают информацию исходя из назначения кнопки."""
+
+
 @dp.message_handler()
 async def bot_message(message: types.Message):
     """Исходя из нажатой кнопки отправляется определнный текст"""
@@ -45,15 +51,17 @@ async def bot_message(message: types.Message):
         """random.randint генерирует рандомное число в заданном диапазоне"""
         await bot.send_message(message.from_user.id, 'Ставьте ' + str(random.randint(8, 10)))
     elif message.text == 'Погода':
-        await bot.send_message(message.from_user.id, 'Выберите город'.format(message.from_user),reply_markup=nav.cityMenu)
-    elif message.text == 'Москва' or message.text == 'Санкт-Петербург' or message.text == 'Новосибирск' or message.text == 'Казань'\
-        or message.text == 'Нижний Новгород' or message.text == 'Челябинск' or message.text == 'Самара'\
-            or message.text == 'Омкс' or message.text == 'Ростов-на-Дону' or message.text == 'Уфа' or message.text == 'Пермь'\
+        await bot.send_message(message.from_user.id, 'Выберите город'.format(message.from_user),
+                                reply_markup=nav.cityMenu)
+    elif message.text == 'Москва' or message.text == 'Санкт-Петербург' or message.text == 'Новосибирск' or message.text == 'Казань' \
+            or message.text == 'Нижний Новгород' or message.text == 'Челябинск' or message.text == 'Самара' \
+            or message.text == 'Омкс' or message.text == 'Ростов-на-Дону' or message.text == 'Уфа' or message.text == 'Пермь' \
             or message.text == 'Красноярск' or message.text == 'Воронеж' or message.text == 'Волгоград':
 
         async def mainw():
-            city=message.text
+            city = message.text
             await get_weather(city, open_weather_token)
+
         async def get_weather(city, open_weather_token):
             # библиотека
             code_to_smile = {
@@ -87,14 +95,14 @@ async def bot_message(message: types.Message):
                 sunset = datetime.datetime.fromtimestamp(data["sys"]["sunset"])  # ремя заката
 
                 # Возвращаются необходимые данные, задается оформление
-                await message.reply(f"----{datetime.datetime.now().strftime('%d-%m-%y %H:%M')}----\n"
-                             f"Погода в городе {city} на текущий момент:\nТемпература: {cur_weather}°С {wd}\n"
-                             f"Влажность: {humidity}%\nДавление: {pressure} мм.рт.ст.\n"
-                             f"Скорость ветра: {wind}м/с\nВремя рассвета: {sunrise}\nВремя заката: {sunset}\n"
-                             f"\n"
-                             f"Защити себя от коронавируса - ПОСТАВЬ ПРИВИВКУ\n"
-                             f"Госуслуги - проще, чем кажется\n"
-                             f"Не болейте!")
+                await message.reply(f"----{datetime.datetime.now ().strftime ('%d-%m-%y %H:%M')}----\n"
+                                    f"Погода в городе {city} на текущий момент:\nТемпература: {cur_weather}°С {wd}\n"
+                                    f"Влажность: {humidity}%\nДавление: {pressure} мм.рт.ст.\n"
+                                    f"Скорость ветра: {wind}м/с\nВремя рассвета: {sunrise}\nВремя заката: {sunset}\n"
+                                    f"\n"
+                                    f"Защити себя от коронавируса - ПОСТАВЬ ПРИВИВКУ\n"
+                                    f"Госуслуги - проще, чем кажется\n"
+                                    f"Не болейте!")
             except:
                 await message.reply('Ошибка! Проверьте название введенного города.')
                 handle = None
@@ -115,92 +123,96 @@ async def bot_message(message: types.Message):
         await bot.send_message(message.from_user.id, 'Хочешь спойлер Человека-Паука? Ладно, не буду...')
 
     elif message.text == 'Приколюхи':
-        await bot.send_message(message.from_user.id, 'Добро пожаловать в самую странную часть:', reply_markup=nav.prikMenu)
+        await bot.send_message(message.from_user.id, 'Добро пожаловать в самую странную часть:',
+                               reply_markup=nav.prikMenu)
     elif message.text == 'Какое ты животное?':
         await bot.send_message(message.from_user.id, 'Правда хочешь узнать?!')
-        img_list = ['img_list/img_1.jpg', 'img_list/img_2.jpg', 'img_list/img_3.jpg', 'img_list/img_4.jpg',\
+        img_list = ['img_list/img_1.jpg', 'img_list/img_2.jpg', 'img_list/img_3.jpg', 'img_list/img_4.jpg',
                     'img_list/img_5.jpg', 'img_list/img_6.jpg', 'img_list/img_7.jpg']
-        img_path = random.choice(img_list) #выбирается рандомная картинка
-        await bot.send_photo(message.chat.id, photo=open(img_path, 'rb')) #рандомная картинка отправляется пользователю
+        img_path = random.choice(img_list)  # выбирается рандомная картинка
+        await bot.send_photo(message.chat.id, photo=open(img_path, 'rb'))  # рандомная картинка отправляется пользователю
     elif message.text == 'Узнай...':
         await bot.send_message(message.from_user.id, 'Выбери, что хочешь о себе узнать:', reply_markup=nav.gadMenu)
     elif message.text == 'Жизненный настрой':
         await message.reply(f"Внимательно посмотрите на амулеты и долго не думая выберите понравившийся!\n")
         pic_list = ['pic_list/p_1.jpg']
-        img_path2=random.choice(pic_list)
+        img_path2 = random.choice(pic_list)
         await bot.send_photo(message.chat.id, photo=open(img_path2, "rb"))
-        await message.reply(f"1. Этот амулет предпочитают люди стремящиеся к личностному росту.\n" #\n переносит на новую строку
-                            f"Вы сейчас находитесь в поиске различных идей, от результата которого будет зависеть вся\n"#f - начало новой строки
-                            f"дальнейшая жизнь. Постарайтесь скорее обрести себя и сформировать желания и цели на\n"
-                            f"дальнейшую жизнь.Чем раньше вы это сделаете, тем больших успехов сможете достичь.\n"
-                            f"\n"
-                            f"2. Скорее всего, вам мешают внешние обстоятельства или другие люди! В скором времени вы\n"
-                            f"сможете расширить свои границы и возможности. Не позволяйте другим людям препятствовать вам.\n"
-                            f"Установите четкие личные границы.\n"
-                            f"\n"
-                            f"3. Амулет указывает на то, что вы морально истощились и физически устали.\n"
-                            f"Этот амулет ассоциируется с грядущей свободой и раскрепощением. Сейчас самое время\n"
-                            f"отдохнуть, и разработать четкий план.\n"
-                            f"\n"
-                            f"4. Значение этого амулета наиболее благоприятное. Его выбирают удачливые люди.\n"
-                            f"Если на данном этапе у вас и имеются некоторые проблемы, то в скором времени они\n"
-                            f"разрешатся, и все сложится наилучшим образом. Сохраняйте свой жизненный настрой,\n"
-                            f"и вам всегда будет сопутствовать удача.\n"
-                            f"\n"
-                            f"5. У вас хорошо развита интуиция, но вы еще не до конца разобрались, как этим воспользоваться.\n"
-                            f"Если сейчас имеются вопросы, то в скором времени вы получите знак, как их лучше разрешить.\n"
-                            f"Доверяйте своему внутреннему голосу, и присмотритесь к знакам судьбы.\n"
-                            f"\n"
-                            f"6. Такой выбор говорит о грядущих событиях, которые изменят вашу жизнь к лучшему.\n"
-                            f"Этот амулет определяет вам финансовый достаток и успех в делах. Не следует надеяться,\n"
-                            f"что все разрешится без вашего участия. Продолжайте работать, и тогда вас ожидает успех.\n")
+        await message.reply(
+            f"1. Этот амулет предпочитают люди стремящиеся к личностному росту.\n"  # \n переносит на новую строку
+            f"Вы сейчас находитесь в поиске различных идей, от результата которого будет зависеть вся\n"  # f - начало новой строки
+            f"дальнейшая жизнь. Постарайтесь скорее обрести себя и сформировать желания и цели на\n"
+            f"дальнейшую жизнь.Чем раньше вы это сделаете, тем больших успехов сможете достичь.\n"
+            f"\n"
+            f"2. Скорее всего, вам мешают внешние обстоятельства или другие люди! В скором времени вы\n"
+            f"сможете расширить свои границы и возможности. Не позволяйте другим людям препятствовать вам.\n"
+            f"Установите четкие личные границы.\n"
+            f"\n"
+            f"3. Амулет указывает на то, что вы морально истощились и физически устали.\n"
+            f"Этот амулет ассоциируется с грядущей свободой и раскрепощением. Сейчас самое время\n"
+            f"отдохнуть, и разработать четкий план.\n"
+            f"\n"
+            f"4. Значение этого амулета наиболее благоприятное. Его выбирают удачливые люди.\n"
+            f"Если на данном этапе у вас и имеются некоторые проблемы, то в скором времени они\n"
+            f"разрешатся, и все сложится наилучшим образом. Сохраняйте свой жизненный настрой,\n"
+            f"и вам всегда будет сопутствовать удача.\n"
+            f"\n"
+            f"5. У вас хорошо развита интуиция, но вы еще не до конца разобрались, как этим воспользоваться.\n"
+            f"Если сейчас имеются вопросы, то в скором времени вы получите знак, как их лучше разрешить.\n"
+            f"Доверяйте своему внутреннему голосу, и присмотритесь к знакам судьбы.\n"
+            f"\n"
+            f"6. Такой выбор говорит о грядущих событиях, которые изменят вашу жизнь к лучшему.\n"
+            f"Этот амулет определяет вам финансовый достаток и успех в делах. Не следует надеяться,\n"
+            f"что все разрешится без вашего участия. Продолжайте работать, и тогда вас ожидает успех.\n")
     elif message.text == 'Комплексы':
         await message.reply(f"Выберете узел, не стоит долго думать.\n")
         pic_list = ['pic_list/p_2.jpg']
         img_path3 = random.choice(pic_list)
         await bot.send_photo(message.chat.id, photo=open(img_path3, "rb"))
-        await message.reply(f"1. Вы очень сильно комплексуете по поводу своей внешности. Вас не устраивают ваши параметры\n"#\n переносит на новую строку
-                            f"вашего тела или некоторые черты лица. Вам хотелось бы выглядеть лучше и красивее.\n"#f - начало новой строки
-                            f"Но на самом деле, вся наша красота внутри нас. Важно принять себя и полюбить таким,\n"
-                            f"какой вы есть на самом деле. Стремиться быть лучше это хорошо. Но важно сначала полюбить себя.\n"
-                            f"\n"
-                            f"2. Ваш комплекс состоит в том, что вам трудно найти общий язык с другими людьми.\n"
-                            f"Вы зажаты в разговоре. Вам сложно начать диалог с посторонним, незнакомым человеком.\n"
-                            f"Необходимо пройти курс по психологии, чтобы избавиться от этого комплекса.\n"
-                            f"\n"
-                            f"3. Вы сравниваете себя постоянно с другими людьми. Вам кажется, что кто-то умнее, красивее,\n"
-                            f"талантливее вас. И это так. Всегда найдется такой человек. Но вы смотрите на эту проблему\n"
-                            f"не под тем углом. Вам нужно находить ваши достоинства, которых нет ни у кого кроме вас.\n"
-                            f"Ищите в себе больше плюсов, а не минусов.\n"
-                            f"\n"
-                            f"4. А вот у вас комплекс отличника. Вы любите доводить все до идеала. У вас дома и пылинки не\n"
-                            f"найдешь. Вы вымываете свои тарелки сразу же после еды. Не дай бог они у вас простоят\n"
-                            f"лишних 5 минут без присмотра. На эту тему можно много утрировать, но лучше понять суть\n"
-                            f"проблемы. Вы несчастный человек, потому что не можете себе позволить расслабиться.\n"
-                            f"Вам нужно делать все безупречно. Конечно, если вас делает это счастливым человеком — делайте это.\n"
-                            f"Просто помните, что вы можете позволить себе совершать иногда ошибки и не быть идеальной личностью.\n")
+        await message.reply(
+            f"1. Вы очень сильно комплексуете по поводу своей внешности. Вас не устраивают ваши параметры\n"  # \n переносит на новую строку
+            f"вашего тела или некоторые черты лица. Вам хотелось бы выглядеть лучше и красивее.\n"  # f - начало новой строки
+            f"Но на самом деле, вся наша красота внутри нас. Важно принять себя и полюбить таким,\n"
+            f"какой вы есть на самом деле. Стремиться быть лучше это хорошо. Но важно сначала полюбить себя.\n"
+            f"\n"
+            f"2. Ваш комплекс состоит в том, что вам трудно найти общий язык с другими людьми.\n"
+            f"Вы зажаты в разговоре. Вам сложно начать диалог с посторонним, незнакомым человеком.\n"
+            f"Необходимо пройти курс по психологии, чтобы избавиться от этого комплекса.\n"
+            f"\n"
+            f"3. Вы сравниваете себя постоянно с другими людьми. Вам кажется, что кто-то умнее, красивее,\n"
+            f"талантливее вас. И это так. Всегда найдется такой человек. Но вы смотрите на эту проблему\n"
+            f"не под тем углом. Вам нужно находить ваши достоинства, которых нет ни у кого кроме вас.\n"
+            f"Ищите в себе больше плюсов, а не минусов.\n"
+            f"\n"
+            f"4. А вот у вас комплекс отличника. Вы любите доводить все до идеала. У вас дома и пылинки не\n"
+            f"найдешь. Вы вымываете свои тарелки сразу же после еды. Не дай бог они у вас простоят\n"
+            f"лишних 5 минут без присмотра. На эту тему можно много утрировать, но лучше понять суть\n"
+            f"проблемы. Вы несчастный человек, потому что не можете себе позволить расслабиться.\n"
+            f"Вам нужно делать все безупречно. Конечно, если вас делает это счастливым человеком — делайте это.\n"
+            f"Просто помните, что вы можете позволить себе совершать иногда ошибки и не быть идеальной личностью.\n")
     elif message.text == 'Бизнесмен':
         await message.reply(f"Выберите только 1 картинку.\n")
         pic_list = ['pic_list/p_3.jpg']
-        img_path4=random.choice(pic_list)
+        img_path4 = random.choice(pic_list)
         await bot.send_photo(message.chat.id, photo=open(img_path4, "rb"))
-        await message.reply(f"1. Вы являетесь творческим человеком, поэтому, вероятнее всего, вам не стоит заниматься\n"#\n переносит на новую строку
-                            f"бизнесом. В крайнем случае попробуйте совместить бизнес и творчество, тогда вас может ждать\n"#f - начало новой строки
-                            f"успех. Вы привыкли мыслить ни как все, поэтому рядом с вами должен быть человек,\n"
-                            f"который будет помогать в некоторых вопросах.\n"
-                            f"\n"
-                            f"Вам суждено стать бизнесменом, причем довольно успешным. Вы имеете аналитический склад ума,\n"
-                            f"поэтому сложные задачи, которые сложны для других, вы решаете на автоматизме. Даже если\n"
-                            f"вы не можете найти общую точку зрения с человеком, то вы сделаете все, чтобы уговорить\n"
-                            f"его встать на вашу сторону. Любой бизнес вам дастся с легкостью.\n"
-                            f"\n"
-                            f"У вас есть шанс стать бизнесменом, однако, вам не хватает опыта. Посещайте курсы,\n"
-                            f"читайте больше книг, и тогда вы придете к совершенству. Возможно, вам нужно познакомиться\n"
-                            f"с человеком, который уже имеет опыт в этом деле. И помните, что любое дело требует не только\n"
-                            f"ответственности, но и усердных стараний.\n")
+        await message.reply(
+            f"1. Вы являетесь творческим человеком, поэтому, вероятнее всего, вам не стоит заниматься\n"  # \n переносит на новую строку
+            f"бизнесом. В крайнем случае попробуйте совместить бизнес и творчество, тогда вас может ждать\n"  # f - начало новой строки
+            f"успех. Вы привыкли мыслить ни как все, поэтому рядом с вами должен быть человек,\n"
+            f"который будет помогать в некоторых вопросах.\n"
+            f"\n"
+            f"Вам суждено стать бизнесменом, причем довольно успешным. Вы имеете аналитический склад ума,\n"
+            f"поэтому сложные задачи, которые сложны для других, вы решаете на автоматизме. Даже если\n"
+            f"вы не можете найти общую точку зрения с человеком, то вы сделаете все, чтобы уговорить\n"
+            f"его встать на вашу сторону. Любой бизнес вам дастся с легкостью.\n"
+            f"\n"
+            f"У вас есть шанс стать бизнесменом, однако, вам не хватает опыта. Посещайте курсы,\n"
+            f"читайте больше книг, и тогда вы придете к совершенству. Возможно, вам нужно познакомиться\n"
+            f"с человеком, который уже имеет опыт в этом деле. И помните, что любое дело требует не только\n"
+            f"ответственности, но и усердных стараний.\n")
     elif message.text == 'Вода':
-        await message.reply(f"----Рыбы----\n" #\n переносит на новую строку
-                            f"Стихия - Вода\n" #f - начало новой строки
+        await message.reply(f"----Рыбы----\n"  # \n переносит на новую строку
+                            f"Стихия - Вода\n"  # f - начало новой строки
                             f"Планета - Нептун\n"
                             f"Рыбы – изменчивые и непрактичные. Хорошо развитое воображение и богатый внутренний мир\n"
                             f"часто уводят Рыб в страну грез. Фантазии и мечты настолько заполняют жизнь, что порой\n"
@@ -295,29 +307,30 @@ async def bot_message(message: types.Message):
     elif message.text == 'Криминальная Россия':
         await bot.send_message(message.from_user.id, 'Выпуски какого года?', reply_markup=nav.krimMenu)
     elif message.text == '1995':
-        kr95_list = ["https://youtu.be/26YEFSJGixY", "https://youtu.be/KeYRbrQ1_6k", "https://youtu.be/q9aevIXuaWY",\
-                   "https://youtu.be/vjdE9cNr69U", "https://youtu.be/RkaXHH9p9Hg", "https://youtu.be/G6b9z_6BnNk",\
-                   "https://youtu.be/GL1_SOC35Bc", "https://youtu.be/rxxfJMzBpCY", "https://youtu.be/xYwGlMBFsQk",\
-                   "https://youtu.be/SFES1rT1ob0", "https://youtu.be/hz-BBa-NzYg", "https://youtu.be/bQoXv2jzoDo",\
-                   "https://youtu.be/2f1IaZyAH-4"]
+        kr95_list = ["https://youtu.be/26YEFSJGixY", "https://youtu.be/KeYRbrQ1_6k", "https://youtu.be/q9aevIXuaWY",
+                     "https://youtu.be/vjdE9cNr69U", "https://youtu.be/RkaXHH9p9Hg", "https://youtu.be/G6b9z_6BnNk",
+                     "https://youtu.be/GL1_SOC35Bc", "https://youtu.be/rxxfJMzBpCY", "https://youtu.be/xYwGlMBFsQk",
+                     "https://youtu.be/SFES1rT1ob0", "https://youtu.be/hz-BBa-NzYg", "https://youtu.be/bQoXv2jzoDo",
+                     "https://youtu.be/2f1IaZyAH-4"]
         await message.reply(random.choice(kr95_list))
     elif message.text == '1997':
-        kr97_list = ["https://youtu.be/Z6awn_67JHI", "https://youtu.be/rMgT523vV8M", "https://youtu.be/xWyPLqxFd2E",\
-                    "https://youtu.be/xAgVYCAJYKM", "https://youtu.be/H0eZae2RZ7o","https://youtu.be/fNDRbaQsjwY",\
+        kr97_list = ["https://youtu.be/Z6awn_67JHI", "https://youtu.be/rMgT523vV8M", "https://youtu.be/xWyPLqxFd2E",
+                     "https://youtu.be/xAgVYCAJYKM", "https://youtu.be/H0eZae2RZ7o", "https://youtu.be/fNDRbaQsjwY",
                      "https://youtu.be/qEmtNJnJKVk"]
-        await message.reply (random.choice (kr97_list))
+        await message.reply(random.choice(kr97_list))
     elif message.text == '1998':
-        kr98_list = ["https://youtu.be/TkGinelJZ1I", "https://youtu.be/filyf2cvsEI", "https://youtu.be/YSDsr8PmTbY",\
-                    "https://youtu.be/Znd9UFaH1xc", "https://youtu.be/PHJLKatR3Xk","https://youtu.be/OiwTyMmZkhA",\
-                    "https://youtu.be/4wqd2P33qFo", "https://youtu.be/-7W6S2-3FOg","https://youtu.be/IPXBoIchFlQ", \
-                    "https://youtu.be/x_nbiiSFFlY", "https://youtu.be/S261nGfcNGU", "https://youtu.be/tsPvsDIfNP8", \
-                    "https://youtu.be/yemsD1mUlUM", "https://youtu.be/UJszlW-S-7U", "https://youtu.be/jtd43ehuWAM", \
-                    "https://youtu.be/2HEHceD6nK4", "https://youtu.be/x5nm9K_iwFQ, https://youtu.be/4EQ9gDuUnWo"]
-        await message.reply (random.choice (kr98_list))
-    elif message.text == 'Главное меню': # возвращает пользователя в главное меню
+        kr98_list = ["https://youtu.be/TkGinelJZ1I", "https://youtu.be/filyf2cvsEI", "https://youtu.be/YSDsr8PmTbY",
+                     "https://youtu.be/Znd9UFaH1xc", "https://youtu.be/PHJLKatR3Xk", "https://youtu.be/OiwTyMmZkhA",
+                     "https://youtu.be/4wqd2P33qFo", "https://youtu.be/-7W6S2-3FOg", "https://youtu.be/IPXBoIchFlQ",
+                     "https://youtu.be/x_nbiiSFFlY", "https://youtu.be/S261nGfcNGU", "https://youtu.be/tsPvsDIfNP8",
+                     "https://youtu.be/yemsD1mUlUM", "https://youtu.be/UJszlW-S-7U", "https://youtu.be/jtd43ehuWAM",
+                     "https://youtu.be/2HEHceD6nK4", "https://youtu.be/x5nm9K_iwFQ, https://youtu.be/4EQ9gDuUnWo"]
+        await message.reply(random.choice(kr98_list))
+    elif message.text == 'Главное меню':  # возвращает пользователя в главное меню
         await bot.send_message(message.from_user.id, 'Только что же там были...', reply_markup=nav.mainMenu)
     elif message.text == 'Назад':
         await bot.send_message(message.from_user.id, 'Только что же там были...', reply_markup=nav.prikMenu)
+
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
