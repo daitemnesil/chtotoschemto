@@ -16,7 +16,7 @@ mainMenu = ReplyKeyboardMarkup(resize_keyboard = True).add(btnPog, btnWtg, btnRa
 # ---Other menu---
 btnFood = KeyboardButton('Еда')
 btnAttr = KeyboardButton('Поглазеть')
-btnCinema = KeyboardButton('Кино')
+btnCinema = KeyboardButton('Бары')
 btnBack = KeyboardButton('Главное меню')
 """Добавление всех вышезаданных точек. resize_keyboard = True  - отвечает за то, чтобы кнопки подстраивались по размеру"""
 otherMenu = ReplyKeyboardMarkup(resize_keyboard=True).add(btnFood, btnAttr, btnCinema, btnBack)
