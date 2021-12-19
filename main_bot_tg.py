@@ -108,20 +108,12 @@ async def bot_message(message: types.Message):
     elif message.text == 'Еда':
         await bot.send_message(message.from_user.id, 'Тебе бы на диету, но ладно...')
 
-        #search_loction = gmaps.places(location=(lat, lng), type="cafe")
-        #search_loction2 = gmaps.places(location=(lat, lng), type="restaurant")
-        await message.reply(search_loction, search_loction2)
     elif message.text == 'Поглазеть':
-
         await bot.send_message(message.from_user.id, 'Надо же, удивительно, не вариант с едой...')
-        #search_loction = gmaps.places(location=(lat, lng), type="art_gallery")
-        #search_loction2 = gmaps.places(location=(lat, lng), type="tourist_attraction")
-        await message.reply(search_loction, search_loction2)
-    elif message.text == 'Кино':
-        await bot.send_message(message.from_user.id, 'Введите через запятую свою долготу и широту')
 
-        #search_loction = gmaps.places(location=lat, lng, type="movie_theater")
-        await message.reply(search_loction)
+    elif message.text == 'Кино':
+        await bot.send_message(message.from_user.id, 'Хочешь спойлер Человека-Паука? Ладно, не буду...')
+
     elif message.text == 'Приколюхи':
         await bot.send_message(message.from_user.id, 'Добро пожаловать в самую странную часть:', reply_markup=nav.prikMenu)
     elif message.text == 'Какое ты животное?':
