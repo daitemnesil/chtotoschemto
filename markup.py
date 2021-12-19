@@ -8,13 +8,14 @@ btnPog = KeyboardButton('Погода') #кнопка для того, чтоб�
 btnWtg = KeyboardButton('Куда пойти?') #кнопка, перенаправляющая в доп меню с вариантами куда можно сходить
 btnCat = KeyboardButton('Какое ты животное?')
 btnRand = KeyboardButton('Какую оценку поставить?')
+btnTaro = KeyboardButton('Узнай...')
 btns1 = KeyboardButton('Вода')
 btns2 = KeyboardButton('Земля')
 btns3 = KeyboardButton('Воздух')
 btns4 = KeyboardButton('Огонь')
 """Добавление всех вышезаданных точек. 
 resize_keyboard = True  - отвечает за то, чтобы кнопки подстраивались по размеру"""
-mainMenu = ReplyKeyboardMarkup(resize_keyboard = True).add(btnPog, btnWtg, btnCat, btnRand, btns1, btns2, btns3, btns4)
+mainMenu = ReplyKeyboardMarkup(resize_keyboard = True).add(btnPog, btnTaro, btnWtg, btnCat, btnRand, btns1, btns2, btns3, btns4)
 
 """Кнопки дополнительного меню, открывающиеся если пользователь нажал на кнопку 'Куда пойти?"""
 # ---Other menu---
@@ -25,6 +26,13 @@ btnBack = KeyboardButton('Назад')
 """Добавление всех вышезаданных точек. 
 resize_keyboard = True  - отвечает за то, чтобы кнопки подстраивались по размеру"""
 otherMenu = ReplyKeyboardMarkup(resize_keyboard=True).add(btnFood, btnAttr, btnCinema, btnBack)
+
+# ---Gadanie menu---
+btnf1 = KeyboardButton('Жизненный настрой')
+btnf2 = KeyboardButton('Комплексы')
+btnf3 = KeyboardButton('Бизнесмен')
+btnBack = KeyboardButton('Назад')
+gadMenu = ReplyKeyboardMarkup(resize_keyboard=True).add(btnf1, btnf2, btnf3, btnBack)
 
 # ---City---
 btnM = KeyboardButton('Москва')
@@ -45,3 +53,7 @@ btnVol = KeyboardButton('Волгоград')
 btnBack = KeyboardButton('Назад')
 cityMenu = ReplyKeyboardMarkup(resize_keyboard=True).add(btnM, btnSp, btnNov, btnEkb, btnKaz, btnNN, btnCh, btnSam,
                                                          btnOm, btnRND, btnUfa, btnKr, btnV, btnPer, btnVol, btnBack)
+
+
+
+
