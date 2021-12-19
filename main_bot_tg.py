@@ -50,7 +50,7 @@ async def bot_message(message: types.Message):
     if message.text == 'Какую оценку поставить?':
         """random.randint генерирует рандомное число в заданном диапазоне"""
         await bot.send_message(message.from_user.id, 'Ставьте ' + str(random.randint(8, 10)))
-    elif message.text == 'Погода':
+    elif message.text == 'Погода': # при нажатии кнопки Погода пользователя перенаправляет в меню с выбором города
         await bot.send_message(message.from_user.id, 'Выберите город'.format(message.from_user),
                                reply_markup=nav.cityMenu)
     elif message.text == 'Москва' or message.text == 'Санкт-Петербург' or message.text == 'Новосибирск' or message.text == 'Казань' \
@@ -58,10 +58,12 @@ async def bot_message(message: types.Message):
             or message.text == 'Омкс' or message.text == 'Ростов-на-Дону' or message.text == 'Уфа' or message.text == 'Пермь' \
             or message.text == 'Красноярск' or message.text == 'Воронеж' or message.text == 'Волгоград':
 
+        """Функция, получает на вход сообщение исходя из выбранной пользователем кнопки с городом"""
         async def mainw():
             city = message.text
             await get_weather(city, open_weather_token)
 
+        """"Функция проводит поиск информации на openweather maps b возвращающает погодные условия в определенном городе"""
         async def get_weather(city, open_weather_token):
             # библиотека
             code_to_smile = {
@@ -110,28 +112,79 @@ async def bot_message(message: types.Message):
         if __name__ == "__main__":
             await mainw()
 
-    elif message.text == 'Куда пойти?':
+    elif message.text == 'Куда пойти?': # при нажатии 'Куда пойти?' попадаем в меню вариантов досуга
         """reply_markup перенаправляет пользователя в новое место, в данном случае в доп меню"""
-        await bot.send_message(message.from_user.id, 'Выберите:', reply_markup=nav.otherMenu)
+        await bot.send_message(message.from_user.id, 'Пока что данная функция доступна только для Москвы.', reply_markup=nav.otherMenu)
     elif message.text == 'Еда':
         await bot.send_message(message.from_user.id, 'Тебе бы на диету, но ладно...')
+        await message.reply(f"САЛЮТ\n"
+                            f"каждый день с 08.00 до 23.00\n"
+                            f"https://instagram.com/salutecoffee?utm_medium=copy_link\n"
+                            f"Strastnoy boulevard 12 bld. 5\n"
+                            f"\n"
+                            f"YUMBAKER\n"
+                            f"Yumbaker Home с 08.00 до 20.00\n"
+                            f"Yumbaker Gardens с 09.00 до 21.00\n"
+                            f"https://now.yumbaker.ru/\n"
+                            f"Yumbaker Home м. Добрынинская, Пятницкая 66с1\n"
+                            f"Yumbaker Gardens м. Проспект Мира, пр-т. Мира 26с1\n"
+                            f"\n"
+                            f"KAIF BURGER\n"
+                            f"каждый день с 11.00 до 23.00\n"
+                            f"https://instagram.com/kaif_burger?utm_medium=copy_link\n"
+                            f"Никольская ул., 10/2, стр.2Б\n")
 
-    elif message.text == 'Поглазеть':
+
+    elif message.text == 'Поглазеть': # при нажатии кнопки Поглазеть получаем варианты того, что можно посетить
         await bot.send_message(message.from_user.id, 'Надо же, удивительно, не вариант с едой...')
-
-    elif message.text == 'Кино':
-        await bot.send_message(message.from_user.id, 'Хочешь спойлер Человека-Паука? Ладно, не буду...')
-
+        await message.reply(f"Как стретить Новый год экологично - онлайн-дискуссия\n"
+                            f"21 декабря в 18.00\n"
+                            f"https://dvizhenie-razdelnyy-event.timepad.ru/event/1856971/\n"
+                            f"Бесплатно при регистрации\n"
+                            f"\n"
+                            f"Арт-бранч 'Щелкунчик'\n"
+                            f"24 декабря в 20.00\n"
+                            f"https://creativediaspora.timepad.ru/event/1870789/\n"
+                            f"Стоимость билета - 700р\n"
+                            f"\n"
+                            f"Благотворительная ярмарка Rassvet Christmas Fair\n"
+                            f"25 и 26 декабря в 12.00\n"
+                            f"Вход свободный по регистрации\n"
+                            f"https://dkrassvet.space/events/rassvet-christmas-fair/\n"
+                            f"\n"
+                            f"Рождественский киноквиз\n"
+                            f"25 декабря в 17.00\n"
+                            f"Стоимость билета - 400р\n"
+                            f"https://www.museikino.ru/events/rozhdestvenskiy-kinokviz-podvedenie-itogov-kinogoda/\n")
+    elif message.text == 'Бары':  # при нажатии кнопки Бары получаем варианты баров
+        await bot.send_message(message.from_user.id, 'Мда...алкоголизм...ладно, ищу...')
+        await message.reply( f"MEOW BAR\n"
+                             f"по будням с 17.00 до 04.00\n"
+                             f"по выходным с 12.00 до 04.00\n"
+                             f"http://meowbar.ru/\n"
+                             f"ул. Кузнецкий мост 19 с1\n"
+                             f"\n"
+                             f"ДЕЛАЙ КУЛЬТУРУ\n"
+                             f"пн с 18.00 до 00.00\n"
+                             f"вт-чт с 16.00 до 00.00\n"
+                             f"пт-сб с 16.00 до 01.00\n"
+                             f"https://delaikultu.ru/\n"
+                             f"Милютинский переулок, дом 15 с1\n"
+                             f"\n"
+                             f"ЙУХ\n"
+                             f"пн-пт с 12.00 до 23.00\n"
+                             f"сб-вс с 14.00 до 23.00\n"
+                             f"https://delaikultu.ru/\n"
+                             f"Милютинский переулок, дом 15 с1\n")
     elif message.text == 'Приколюхи':
         await bot.send_message(message.from_user.id, 'Добро пожаловать в самую странную часть:',
-                                reply_markup=nav.prikMenu)
+                               reply_markup=nav.prikMenu)
     elif message.text == 'Какое ты животное?':
         await bot.send_message(message.from_user.id, 'Правда хочешь узнать?!')
         img_list = ['img_list/img_1.jpg', 'img_list/img_2.jpg', 'img_list/img_3.jpg', 'img_list/img_4.jpg',
                     'img_list/img_5.jpg', 'img_list/img_6.jpg', 'img_list/img_7.jpg']
         img_path = random.choice(img_list)  # выбирается рандомная картинка
-        await bot.send_photo(message.chat.id,
-                              photo=open(img_path, 'rb'))  # рандомная картинка отправляется пользователю
+        await bot.send_photo(message.chat.id, photo=open(img_path, 'rb'))  # рандомная картинка отправляется пользователю
     elif message.text == 'Узнай...':
         await bot.send_message(message.from_user.id, 'Выбери, что хочешь о себе узнать:', reply_markup=nav.gadMenu)
     elif message.text == 'Жизненный настрой':
@@ -212,7 +265,8 @@ async def bot_message(message: types.Message):
             f"с человеком, который уже имеет опыт в этом деле. И помните, что любое дело требует не только\n"
             f"ответственности, но и усердных стараний.\n")
     elif message.text == 'Вода':
-        await message.reply(f"----Рыбы----\n"  # \n переносит на новую строку
+        await message.reply(
+                            f"----Рыбы----\n"  # \n переносит на новую строку
                              f"Стихия - Вода\n"  # f - начало новой строки
                              f"Планета - Нептун\n"
                              f"Рыбы – изменчивые и непрактичные. Хорошо развитое воображение и богатый внутренний мир\n"
@@ -238,7 +292,8 @@ async def bot_message(message: types.Message):
     elif message.text == 'Гороскоп':
         await bot.send_message(message.from_user.id, 'Выберите свою стихию:', reply_markup=nav.gorMenu)
     elif message.text == 'Воздух':
-        await message.reply(f"----Водолей----\n"
+        await message.reply(
+                            f"----Водолей----\n"
                              f"Стихия - Воздух\n"
                              f"Планета - Уран\n"
                              f"Водолей – свободолюбивый и эксцентричный. Всегда настаивает на своей правоте и имеет\n"
@@ -261,7 +316,8 @@ async def bot_message(message: types.Message):
                              f"Они влюбчивы и эстетичны, тонко чувствуют красоту окружающего мира,\n"
                              f"нетерпимы к грубости и дурному вкусу.\n")
     elif message.text == 'Земля':
-        await message.reply(f"----Телец----\n"
+        await message.reply(
+                            f"----Телец----\n"
                              f"Стихия - Земля\n"
                              f"Планета - Венера\n"
                              f"Телец – талантливый и трудолюбивый. Этот знак отличает постоянство и стремлениек комфорту,\n"
@@ -283,7 +339,8 @@ async def bot_message(message: types.Message):
                              f"планировать возносят их на самый верх социальной пирамиды. Талантливые руководители и\n"
                              f"прирожденные лидеры, Козероги все держат под контролем и могут справиться с любой ситуацией.\n")
     elif message.text == 'Огонь':
-        await message.reply(f"----Овен----\n"
+        await message.reply(
+                            f"----Овен----\n"
                              f"Стихия - Огонь\n"
                              f"Планета - Марс\n"
                              f"Овен – импульсивный и независимый. Смел, уверен в себе и энергичен,\n"
