@@ -76,7 +76,9 @@ cityMenu = ReplyKeyboardMarkup(resize_keyboard=True).add(btnM, btnSp, btnNov, bt
 btnkr95 = KeyboardButton('1995') #при нажатии на эту кнопку бот выдаст рандомную серии 1995 года
 btnkr97 = KeyboardButton('1997') #при нажатии на эту кнопку бот выдаст рандомную серии 1997 года
 btnkr98 = KeyboardButton('1998') #при нажатии на эту кнопку бот выдаст рандомную серии 1998 года
+btnkr1 = KeyboardButton('2001') #при нажатии на эту кнопку бот выдаст рандомную серии 2001 года
+btnkr2 = KeyboardButton('2002') #при нажатии на эту кнопку бот выдаст рандомную серии 2002 года
 btnBack5 = KeyboardButton('Главное меню') #при нажатии на эту кнопку пользователь вернется назад в Главное меню
 """Добавление всех вышезаданных точек. resize_keyboard = True  - отвечает за то, чтобы кнопки подстраивались по размеру"""
-krimMenu = ReplyKeyboardMarkup(resize_keyboard=True).add(btnkr95, btnkr97, btnkr98, btnBack5)
+krimMenu = ReplyKeyboardMarkup(resize_keyboard=True).add(btnkr95, btnkr97, btnkr98, btnkr1, btnkr2, btnBack5)
 
