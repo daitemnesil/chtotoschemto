@@ -16,10 +16,10 @@ mainMenu = ReplyKeyboardMarkup(resize_keyboard = True).add(btnPog, btnWtg, btnRa
 # ---Other menu---
 btnFood = KeyboardButton('Еда')
 btnAttr = KeyboardButton('Поглазеть')
-btnCinema = KeyboardButton('Бары')
+btnBeer = KeyboardButton('Бары')
 btnBack = KeyboardButton('Главное меню')
 """Добавление всех вышезаданных точек. resize_keyboard = True  - отвечает за то, чтобы кнопки подстраивались по размеру"""
-otherMenu = ReplyKeyboardMarkup(resize_keyboard=True).add(btnFood, btnAttr, btnCinema, btnBack)
+otherMenu = ReplyKeyboardMarkup(resize_keyboard=True).add(btnFood, btnAttr, btnBeer, btnBack)
 
 """Кнопки дополнительного меню, открывающиеся если пользователь нажал на кнопку 'Приколюхи'"""
 # ---Prikolukhi menu---
@@ -38,7 +38,7 @@ btns3 = KeyboardButton('Воздух') #при нажатии на эту кно
 btns4 = KeyboardButton('Огонь') #при нажатии на эту кнопку бот отправит гороскоп для огненных знаков
 btnBack2 = KeyboardButton('Назад') #при нажатии на эту кнопку пользователь вернется назад в меню Приколюхи
 """Добавление всех вышезаданных точек. resize_keyboard = True  - отвечает за то, чтобы кнопки подстраивались по размеру"""
-gorMenu = ReplyKeyboardMarkup(resize_keyboard = True).add(btns1, btns2, btns3, btns4, btnBack2)
+gorMenu = ReplyKeyboardMarkup(resize_keyboard=True).add(btns1, btns2, btns3, btns4, btnBack2)
 
 """Кнопки дополнительного меню, открывающиеся если пользователь нажал на кнопку 'Узнай...'"""
 # ---Gadanie menu---
